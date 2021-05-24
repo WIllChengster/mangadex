@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import {
+  Route,
+} from 'react-router-dom';
 
-function App() {
+import './style.css';
+import Navbar from './components/Navbar';
+import Container from '@material-ui/core/Container';
+import Homepage from './components/homepage/Homepage';
+import SeriesPage from './components/seriesPage/SeriesPage';
+import ChapterPage from './components/chapterPage/ChapterPage';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    backgroundColor: 'lightgray',
+    width: '100%'
+  }
+}));
+
+const App = () => {
+  const classes = useStyles();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container disableGutters maxWidth={false} className={classes.container}>
+      <Navbar></Navbar>
+      <Route exact path="/">
+        <Homepage/>
+      </Route>
+      <Route exact path="/series/:seriesId">
+        <SeriesPage/>
+      </Route>
+      <Route path="/chapter/:chapterId">
+        <ChapterPage/>
+      </Route>
+    </Container>
   );
-}
+};
 
 export default App;
